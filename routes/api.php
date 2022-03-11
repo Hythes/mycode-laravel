@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KodeAkunController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('/v1')->group(function(){
+    Route::controller(KodeAkunController::class)->group(function(){
+        Route::get('/kode-akun','fetch');
+        Route::get('/kode-akun/{id}','get');
+        Route::post('/kode-akun','store');
+        Route::post('/kode-akun/update','update');
+        Route::delete('/kode-akun/{id}','destroy');
+    });
 });
